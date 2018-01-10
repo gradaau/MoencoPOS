@@ -1,10 +1,12 @@
 ﻿@model IEnumerable<MoencoPOS.Models.Branch>
-
+@using MoencoPOS.Security;
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/NewTheme _MainLayout_Sidebar.cshtml";
+    var user = (MyIdentityUser)HttpContext.Current.Session["USER_INFO"];
 }
 
-<h2>Index</h2>
+<h2>Branches</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")

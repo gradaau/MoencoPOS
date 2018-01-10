@@ -1,10 +1,12 @@
 ﻿@model MoencoPOS.Models.Branch
-
+@using MoencoPOS.Security;
 @{
     ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/NewTheme _MainLayout_Sidebar.cshtml";
+    var user = (MyIdentityUser)HttpContext.Current.Session["USER_INFO"];
 }
 
-<h2>Edit</h2>
+<h2>Edit Branches</h2>
 
 
 @using (Html.BeginForm())
