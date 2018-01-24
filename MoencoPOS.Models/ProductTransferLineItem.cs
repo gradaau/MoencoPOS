@@ -14,6 +14,7 @@ namespace MoencoPOS.Models
         [Required]
         public int ProductId { get; set; }
         [Required]
+        [Range(1, 10000000, ErrorMessage = "Quantity must be greater than zero(0).")]
         public int Quantity { get; set; }
 
         public int ProductTransferId { get; set; }

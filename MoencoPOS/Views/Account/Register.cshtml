@@ -39,63 +39,74 @@
                                 @Html.LabelFor(m => m.UserName, new { @class = "col-sm-4 control-label" })
                                 <div class="col-sm-8">
                                     @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Password, new { @class = "col-sm-4 control-label" })
                                 <div class="col-sm-8">
                                     @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-sm-4 control-label" })
                                 <div class="col-sm-8">
                                     @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Email, new { @class = "col-sm-4 control-label" })
                                 <div class="col-sm-8">
                                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.FullName, new { @class = "col-sm-4 control-label" })
                                 <div class="col-sm-8">
                                     @Html.TextBoxFor(model => model.FullName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.BirthDate, new { @class = "col-sm-4 control-label" })
                                 <div class="col-sm-8">
-                                    @Html.TextBoxFor(m => m.BirthDate, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.BirthDate, new { @class = "form-control datepicker" })
+                                    @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Bio, new { @class = "col-sm-4 control-label" })
                                 <div class="col-sm-8">
                                     @Html.TextBoxFor(m => m.Bio, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Bio, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.BranchId, new { @class = "col-sm-4 control-label" })
                                 <div class="col-sm-8">
                                     @Html.DropDownList("BranchList")
+                                    @Html.ValidationMessageFor(model => model.BranchId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Role, new { @class = "col-sm-4 control-label" })
                                 <div class="col-sm-8">
                                     @Html.DropDownList("RoleList")
+                                    @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+
                                 </div>
                             </div>
                         </div>
                     }
-                    @ViewBag.Message
-                    @Html.ValidationSummary()
+                    <div>@ViewBag.Message</div>
+                    
                 </div>
             </div>
         </div>
     </div>
 </body>
 </html>
+

@@ -96,19 +96,12 @@ namespace MoencoPOS.Controllers
             return View(branch);
         }
 
-        // GET: Branches/Delete/5
-        public ActionResult Delete(int? id)
+        [Authorize]
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Branch branch = _branchService.FindById(id.Value);
-            if (branch == null)
-            {
-                return HttpNotFound();
-            }
-            return View(branch);
+            var branch = _branchService.FindById(id);
+            _branchService.DeleteBranch(branch);
+            return RedirectToAction("Index", "Branches");
         }
 
         // POST: Branches/Delete/5

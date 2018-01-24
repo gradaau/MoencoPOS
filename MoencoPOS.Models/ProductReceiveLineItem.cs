@@ -14,9 +14,10 @@ namespace MoencoPOS.Models
         [Required]
         public int ProductId { get; set; }
         [Required]
+        [Range(1, 10000000, ErrorMessage = "Quantity must be greater than zero(0).")]
         public int Quantity { get; set; }
         [Required]
-        [Range(1, 10000000)]
+        [Range(1, 10000000, ErrorMessage = "Cost must be greater than zero(0).")]
         [DisplayName("Unit Cost")]
         public decimal UnitCost { get; set; }
 

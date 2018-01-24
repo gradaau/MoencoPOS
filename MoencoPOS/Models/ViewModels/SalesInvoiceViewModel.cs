@@ -10,6 +10,8 @@ namespace MoencoPOS.Models.ViewModels
     {
         public int SalesInvoiceId { get; set; }
         [Display(Name = "Reference Number")]
+        [Required]
+        [StringLength(13)]
         public string ReferenceNo { get; set; }
         public int CustomerId { get; set; }
         [Display(Name = "Customer")]

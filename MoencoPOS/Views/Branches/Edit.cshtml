@@ -6,55 +6,66 @@
     var user = (MyIdentityUser)HttpContext.Current.Session["USER_INFO"];
 }
 
-<h2>Edit Branches</h2>
+<!DOCTYPE html>
 
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit Branch</title>
+</head>
+<body>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Branch</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.BranchId)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BranchName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BranchName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BranchName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BranchLocation, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BranchLocation, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BranchLocation, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BranchDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BranchDescription, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BranchDescription, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+    <div class="row">
+        <div class="col-md-11">
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-green-sharp">
+                        <i class="icon-list font-green-sharp"></i>
+                        <span class="caption-subject bold uppercase">Edit Branch</span>
+                    </div>
+                    <div class="tools">
+                        <a href="#" class="collapse" data-original-title="" title=""></a>
+                    </div>
+                    <div class="actions">
+                        <a class="btn green btn-sm" data-buttontype="btn_save" onclick="javascript: document.getElementById('frm_edit_branch').submit()" data-submittedform="frm_edit_branch"><span class="fa fa-save"></span> Save</a>
+                        <a class="btn red btn-sm" href="@Url.Action("Index", "Branches")"><span class="fa fa-times-circle"></span> Cancel</a>
+                        <a class="btn btn-icon-only btn-default fullscreen"></a>
+                    </div>
+                </div>
+                <div class="portlet-body row">
+                    @using (Html.BeginForm("Edit", "Branches", FormMethod.Post, new { id = "frm_edit_branch", @class = "form-horizontal" }))
+                    {
+                        @Html.AntiForgeryToken();
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.BranchId)
+                        <div class="col-md-offset-1 col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.BranchName, new { @class = "col-sm-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.BranchName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.BranchName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.BranchLocation, new { @class = "col-sm-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.BranchLocation, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.BranchLocation, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.BranchDescription, new { @class = "col-sm-4 control-label" })
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(m => m.BranchDescription, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.BranchDescription, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @ViewBag.Message
+                </div>
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+</body>
+</html>

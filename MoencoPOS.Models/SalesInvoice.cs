@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace MoencoPOS.Models
 {
     public class SalesInvoice
     {
         public int SalesInvoiceId { get; set; }
+        [Required]
         public string ReferenceNo { get; set; }
         public int CustomerId { get; set; }
         public int BranchId { get; set; }

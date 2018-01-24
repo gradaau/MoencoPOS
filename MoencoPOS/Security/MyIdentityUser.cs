@@ -4,7 +4,8 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
-
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace MoencoPOS.Security
 {
@@ -12,6 +13,8 @@ namespace MoencoPOS.Security
 
     public class MyIdentityUser : IdentityUser
     {
+        [Required]
+        [StringLength(50)]
         public string FullName { get; set; }
         public DateTime BirthDate { get; set; }
         public string Bio { get; set; }

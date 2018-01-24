@@ -34,8 +34,8 @@ namespace MoencoPOS.DAL
             context.SaveChanges();
             var salesInvoices = new List<SalesInvoice>
             {
-                new SalesInvoice { SalesInvoiceId=1,CustomerId=1,BranchId=1,SalesType=0,UserId="98f74499-a614-4373-aacd-5eec5b46ef95",DateSold=DateTime.Parse("2016-10-09")},
-                new SalesInvoice { SalesInvoiceId=2,CustomerId=2,BranchId=2,SalesType=1,UserId="98f74499-a614-4373-aacd-5eec5b46ef95",DateSold=DateTime.Parse("2016-10-09")}
+                new SalesInvoice { SalesInvoiceId=1,CustomerId=1,BranchId=1,SalesType=0,UserId="98f74499-a614-4373-aacd-5eec5b46ef95",DateSold=DateTime.Parse("2016-10-09"), ReferenceNo = "ABC-123"},
+                new SalesInvoice { SalesInvoiceId=2,CustomerId=2,BranchId=2,SalesType=1,UserId="98f74499-a614-4373-aacd-5eec5b46ef95",DateSold=DateTime.Parse("2016-10-09"), ReferenceNo = "XYZ-123"}
             };
             salesInvoices.ForEach(s => context.SalesInvoices.Add(s));
             context.SaveChanges();

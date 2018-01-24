@@ -17,6 +17,7 @@ namespace MoencoPOS.Models.ViewModels
         public string Productname { get; set; }
         [Display(Name = "Unit Price")]
         public Decimal UnitPrice { get; set; }
+        [Required]
         public Decimal Quantity { get; set; }    
         public Decimal TotalPrice { get; set; }    
     }

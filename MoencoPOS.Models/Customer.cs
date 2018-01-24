@@ -25,11 +25,14 @@ namespace MoencoPOS.Models
         public string LastName { get; set; }        
         [DisplayName("Address")]
         public string Address { get; set; }
+        [StringLength(13)]
         [DisplayName("Telephone No.")]
         public string TelephoneNo { get; set; }
         [DisplayName("TIN")]
+        [StringLength(10)]
         public string TIN { get; set; }
         [DisplayName("VAT Number")]
+        [StringLength(13)]
         public string VATNumber { get; set; }
         [DisplayName("Trusted")]
         public bool Trusted { get; set; }

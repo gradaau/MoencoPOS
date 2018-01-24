@@ -15,8 +15,10 @@ namespace MoencoPOS.Models
         [Required]
         public int ProductId { get; set; }
         [Required]
+        [Range(1, 10000000, ErrorMessage = "Quantity must be greater than zero(0).")]
         public Decimal Quantity { get; set; }
         [Required]
+        [Range(1, 10000000, ErrorMessage = "Price must be greater than zero(0).")]
         public Decimal UnitPrice { get; set; }
         public virtual SalesInvoice SalesInvoice { get; set; }
         public virtual Productc Productc { get; set; }

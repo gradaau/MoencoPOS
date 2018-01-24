@@ -47,7 +47,8 @@ namespace MoencoPOS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(Register model, string RoleList, int BranchList)
         {
-            ViewBag.RoleList = new SelectList(roleManager.Roles, "Id", "Name");
+            ViewBag.RoleList = new SelectList(roleManager.Roles, "Id", "Name", RoleList);
+            ViewBag.BranchList = new SelectList(_branchService.GetAllBranches(), "BranchId", "BranchName", BranchList);
             if (ModelState.IsValid)
             {
                 MyIdentityUser user = new MyIdentityUser();

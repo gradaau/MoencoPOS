@@ -6,42 +6,109 @@
     var user = (MyIdentityUser)HttpContext.Current.Session["USER_INFO"];
 }
 
-<h2>Branches</h2>
+<div class="row">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BranchName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BranchLocation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BranchDescription)
-        </th>
-        <th></th>
-    </tr>
+    <div class="col-md-12  col-sm-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption font-green-sharp">
+                    <i class="icon-list font-green-sharp"></i>
+                    <span class="caption-subject bold uppercase">Branches</span>
+                </div>
+                <div class="tools">
+                    <a href="#" class="collapse" data-original-title="" title=""></a>
+                </div>
+                <div class="actions">
+                    <a href="@Url.Action("Create", "Branches")" class="btn green" btn-success=""
+                       data-buttontype="btn_new_record"><i class="fa fa-plus"></i>Register Branch</a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-responsive" style="overflow:visible !important;">
+                    <table class="table table-striped table-condensed ">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BranchName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BranchLocation)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BranchDescription)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (MoencoPOS.Models.Branch item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BranchName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BranchLocation)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BranchDescription)
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a class="btn yellow btn-sm" href="@Url.Action("Edit", "Branches", new { id = item.BranchId })"><span class="fa fa-edit"></span>Edit</a>
+                                            <a class="btn red btn-sm btn-delete-branch" href="#" branchId="@item.BranchId"><span class="fa fa-times-circle"></span>Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                //}
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BranchName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BranchLocation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BranchDescription)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BranchId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BranchId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BranchId })
-        </td>
-    </tr>
-}
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-</table>
+<div class="modal" id="cats-modal-branch-delete">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 id="myModalLabel" class="modal-title">Delete Branch</h4>
+            </div>
+
+
+            <div class="modal-body">
+
+                <p>
+                    Are you sure do you want to delete the Branch?
+                </p>
+
+            </div>
+            <div class="modal-footer">
+                <button id="yes-delete" class="btn btn-primary" type="submit">Yes</button>
+                <button id="no" class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $(".btn-delete-branch").click(function () {
+            var branchId = $(this).attr('branchId');
+            $('#cats-modal-branch-delete').modal('show');
+
+            $("#yes-delete").click(function () {
+
+                window.location = "@Url.Action("Delete", "Branches")" + "/" + branchId;
+
+            });
+        });
+    });
+</script>

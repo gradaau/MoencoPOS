@@ -99,19 +99,12 @@ namespace MoencoPOS.Controllers
             return View(productc);
         }
 
-        // GET: Productcs/Delete/5
-        public ActionResult Delete(int? id)
+        [Authorize]
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Productc productc = _productService.FindById(id.Value);
-            if (productc == null)
-            {
-                return HttpNotFound();
-            }
-            return View(productc);
+            var product = _productService.FindById(id);
+            _productService.DeleteProduct(product);
+            return RedirectToAction("Index", "Productcs");
         }
 
         // POST: Productcs/Delete/5

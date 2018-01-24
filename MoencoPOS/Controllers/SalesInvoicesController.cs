@@ -159,10 +159,23 @@ namespace MoencoPOS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CustomerId,SalesType,ReferenceNo")] SalesInvoiceViewModel salesInvoiceViewModel, int CustomerList, 
-            int BranchList, int SalesTypeList)
+            int BranchList, int? SalesTypeList)
         {
+            ViewBag.BranchList = new SelectList(_branchService.GetAllBranches(), "BranchId", "BranchName");
+            MyIdentityUser user = userManager.FindByName(HttpContext.User.Identity.Name);
+            ViewBag.UserName = user.FullName;
+            if (SalesTypeList == 0)
+            {
+                ViewBag.CustomerList = new SelectList(_customerService.Get(t => t.Trusted).ToList(), "CustomerId", "FirstName");
+            }
+            else
+            {
+                ViewBag.CustomerList = new SelectList(_customerService.GetAllCustomers(), "CustomerId", "FirstName");
+            }
             if (ModelState.IsValid)
             {
+                
+
                 var exists = _salesInvoiceService.Get(t => t.ReferenceNo == salesInvoiceViewModel.ReferenceNo).FirstOrDefault();
                 if (exists != null)
                     return View(salesInvoiceViewModel);
@@ -170,13 +183,12 @@ namespace MoencoPOS.Controllers
                 MyIdentityDbContext db = new MyIdentityDbContext();
                 UserStore<MyIdentityUser> userStore = new UserStore<MyIdentityUser>(db);
                 UserManager<MyIdentityUser> userManager = new UserManager<MyIdentityUser>(userStore);
-                MyIdentityUser user = userManager.FindByName(HttpContext.User.Identity.Name);
 
                 var salesInvoice = new SalesInvoice() {
                     BranchId = BranchList,
                     CustomerId = CustomerList,
                     ReferenceNo = salesInvoiceViewModel.ReferenceNo,
-                    SalesType = SalesTypeList,
+                    SalesType = SalesTypeList?? 0,
                     UserId = user.Id,
                     DateSold = DateTime.Now,
                     Status = "Draft"
@@ -186,7 +198,6 @@ namespace MoencoPOS.Controllers
                 
                 return RedirectToAction("Create", "SalesInvoices", new { id = salesInvoice.SalesInvoiceId });
             }
-            
             return View(salesInvoiceViewModel);
         }
 

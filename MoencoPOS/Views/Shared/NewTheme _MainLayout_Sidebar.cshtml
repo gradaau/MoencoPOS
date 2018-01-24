@@ -380,6 +380,10 @@ Like: www.facebook.com/Eng.Biruk.Tilahun
         <!-- END PAGE LEVEL SCRIPTS -->
         <script>
             jQuery(document).ready(function () {
+                $('.datepicker').datepicker({
+                    format: 'dd/mm/yyyy'
+                });
+
                 Metronic.init(); // init metronic core components
                 Layout.init(); // init current layout
                 //QuickSidebar.init(); // init quick sidebar
