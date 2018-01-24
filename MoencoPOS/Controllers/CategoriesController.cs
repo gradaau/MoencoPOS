@@ -93,19 +93,12 @@ namespace MoencoPOS.Controllers
             return View(category);
         }
 
-        // GET: Categories/Delete/5
-        public ActionResult Delete(int? id)
+        [Authorize]
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = _categoryService.FindById(id.Value);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
+            var customer = _categoryService.FindById(id);
+            _categoryService.DeleteCategory(customer);
+            return RedirectToAction("Index", "Customers");
         }
 
         // POST: Categories/Delete/5

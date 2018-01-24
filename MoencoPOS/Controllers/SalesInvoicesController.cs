@@ -159,7 +159,7 @@ namespace MoencoPOS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CustomerId,SalesType,ReferenceNo")] SalesInvoiceViewModel salesInvoiceViewModel, int CustomerList, 
-            int BranchList, int SalesTypeList)
+            int BranchList, int? SalesTypeList)
         {
             if (ModelState.IsValid)
             {
@@ -176,7 +176,7 @@ namespace MoencoPOS.Controllers
                     BranchId = BranchList,
                     CustomerId = CustomerList,
                     ReferenceNo = salesInvoiceViewModel.ReferenceNo,
-                    SalesType = SalesTypeList,
+                    SalesType = SalesTypeList?? 0,
                     UserId = user.Id,
                     DateSold = DateTime.Now,
                     Status = "Draft"

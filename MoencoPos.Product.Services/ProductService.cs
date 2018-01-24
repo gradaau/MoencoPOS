@@ -69,6 +69,11 @@ namespace MoencoPos.Product.Services
             return _unitOfWork.ProductcRepository.GetAll();
         }
 
+        public List<Stock> GetStock()
+        {
+            return _unitOfWork.StockRepository.GetAll();
+        }
+
         public void Dispose()
         {
             _unitOfWork.Dispose();

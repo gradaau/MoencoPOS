@@ -78,14 +78,17 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Product Management <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li class="classic-menu-dropdown">@Html.ActionLink("Category", "Index", "Categories")</li>
-                        <li class="classic-menu-dropdown">@Html.ActionLink("Product", "Index", "Products")</li>
+                        <li class="classic-menu-dropdown">@Html.ActionLink("Product", "Index", "Productcs")</li>
                     </ul>
                 </li>
                 <li class="classic-menu-dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Stock Management <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li class="classic-menu-dropdown">@Html.ActionLink("Receive", "Index", "Receives")</li>
-                        <li class="classic-menu-dropdown">@Html.ActionLink("Transfer", "Index", "Transfers")</li>
+                        <li class="classic-menu-dropdown">@Html.ActionLink("Receive", "Index", "ProductReceives")</li>
+                        <li class="classic-menu-dropdown">@Html.ActionLink("Transfer", "Index", "ProductTransfers")</li>
+                        <li class="classic-menu-dropdown">@Html.ActionLink("All Stock Report", "ReportStockAllBranch", "Stocks")</li>
+                        <li class="classic-menu-dropdown">@Html.ActionLink("Branch Stock Report", "ReportStockByBranch", "Stocks")</li>
+                  
                     </ul>
                 </li>
             }
