@@ -22,5 +22,7 @@ namespace MoencoPos.Product.Services
                    Func<IQueryable<Productc>, IOrderedQueryable<Productc>> orderBy = null,
                    string includeProperties = "");
 
+        List<Stock> GetStock();
+
         }
 }

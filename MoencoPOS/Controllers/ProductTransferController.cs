@@ -97,12 +97,21 @@ namespace MoencoPOS.Controllers
                     UserId = productTransfer.UserId,
                     UserName = userManager.FindById(productTransfer.UserId).FullName
                 };
+                //string FromBranchName = _branchService.FindById(productTransferViewModel.FromBranchId).BranchName;
+                //string ToBranchName = _branchService.FindById(productTransferViewModel.ToBranchId).BranchName;
+                //productTransferViewModel.FromBranchName = FromBranchName;
+                //productTransferViewModel.ToBranchName = ToBranchName;
+                //ViewBag.FromBranchName = FromBranchName;
+                //ViewBag.ToBranchName = ToBranchName;
+
                 string FromBranchName = _branchService.FindById(productTransferViewModel.FromBranchId).BranchName;
                 string ToBranchName = _branchService.FindById(productTransferViewModel.ToBranchId).BranchName;
                 productTransferViewModel.FromBranchName = FromBranchName;
                 productTransferViewModel.ToBranchName = ToBranchName;
-                ViewBag.FromBranchName = FromBranchName;
-                ViewBag.ToBranchName = ToBranchName;
+                ViewBag.FromBranchList = new SelectList(_branchService.GetAllBranches(), "BranchId", "BranchName", productTransfer.FromBranchId);
+                ViewBag.ToBranchList = new SelectList(_branchService.GetAllBranches(), "BranchId", "BranchName", productTransfer.ToBranchId);
+
+
                 ViewBag.UserName = user.FullName;
                 ViewBag.ProductTransferId = productTransfer.ProductTransferId;
                 var productTransferLineItemViewModels = new List<ProductTransferLineItemViewModel>();
@@ -126,9 +135,11 @@ namespace MoencoPOS.Controllers
 
 
             ViewBag.UserName = user.FullName;
-            ViewData["BranchList"] = new SelectList(_branchService.GetAllBranches(), "BranchId", "BranchName");
-            ViewBag.FromBranchName = _branchService.FindById(1).BranchName; ;
-            ViewBag.ToBranchName = _branchService.FindById(2).BranchName; ;
+            //ViewData["BranchList"] = new SelectList(_branchService.GetAllBranches(), "BranchId", "BranchName");
+            //ViewBag.FromBranchName = _branchService.FindById(1).BranchName; ;
+            //ViewBag.ToBranchName = _branchService.FindById(2).BranchName; ;
+            ViewBag.FromBranchList = new SelectList(_branchService.GetAllBranches(), "BranchId", "BranchName");
+            ViewBag.ToBranchList = new SelectList(_branchService.GetAllBranches(), "BranchId", "BranchName");
 
             return View();
         }
@@ -146,8 +157,10 @@ namespace MoencoPOS.Controllers
 
                 var productTransfer = new ProductTransfer()
                 {
-                    FromBranchId =1, //productTransferViewModel.FromBranchId,
-                    ToBranchId= 2, //productTransferViewModel.ToBranchId,
+                    //FromBranchId =1, //productTransferViewModel.FromBranchId,
+                    //ToBranchId= 2, //productTransferViewModel.ToBranchId,
+                    FromBranchId = productTransferViewModel.FromBranchId,
+                    ToBranchId = productTransferViewModel.ToBranchId,
                     UserId = user.Id,
                     DateTransfered = DateTime.Now
                 };
@@ -166,7 +179,8 @@ namespace MoencoPOS.Controllers
         {
             var productTransfer = _productTransferService.Get(t => t.ProductTransferId == productTransferLineItemViewModel.ProductTransferId, null, "ProductTransferLineItems").FirstOrDefault();
             int exists = productTransfer.ProductTransferLineItems.Where(t => t.ProductId == productTransferLineItemViewModel.ProductId).ToList().Count;
-            if (exists > 0)
+            bool available = _productTransferService.IsAvailable(productTransferLineItemViewModel.ProductId, productTransfer.FromBranchId, productTransferLineItemViewModel.Quantity);
+            if (exists > 0 || !available)
             {
                 return RedirectToAction("Create", "ProductTransfers", new { id = productTransfer.ProductTransferId });
             }
@@ -185,9 +199,11 @@ namespace MoencoPOS.Controllers
         {
             var lineItem = _productTransferService.FindLineItemById(id);
             var productTransfer = _productTransferService.FindById(lineItem.ProductTransferId);
-            productTransfer.ProductTransferLineItems.Remove(lineItem);
+            //productTransfer.ProductTransferLineItems.Remove(lineItem);
+            //_productTransferService.DeleteProductTransferLineItem(productTransfer, lineItem);
             _productTransferService.DeleteProductTransferLineItem(productTransfer, lineItem);
             return RedirectToAction("Create", "ProductTransfers", new { id = productTransfer.ProductTransferId });
+
         }
 
 
@@ -241,6 +257,14 @@ namespace MoencoPOS.Controllers
         {
             ProductTransfer productTransfer = _productTransferService.FindById(id);
             _productTransferService.DeleteProductTransfer(productTransfer);
+            return RedirectToAction("Index", "ProductTransfers");
+        }
+
+        public ActionResult DeleteTransfer(int id)
+        {
+            ProductTransfer productTransfer = _productTransferService.FindById(id);
+            if (productTransfer.ProductTransferLineItems == null || productTransfer.ProductTransferLineItems.Count == 0)
+                _productTransferService.DeleteProductTransfer(productTransfer);
             return RedirectToAction("Index", "ProductTransfers");
         }
 

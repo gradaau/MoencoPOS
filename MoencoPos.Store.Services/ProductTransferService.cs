@@ -91,10 +91,17 @@ namespace MoencoPos.Store.Services
 
         public bool DeleteProductTransferLineItem(ProductTransfer productTransfer, ProductTransferLineItem lineItem)
         {
-            _unitOfWork.ProductTransferRepository.Edit(productTransfer);
-            SubtractLineItemStock(lineItem, productTransfer.FromBranchId);
+            //_unitOfWork.ProductTransferRepository.Edit(productTransfer);
+            //SubtractLineItemStock(lineItem, productTransfer.FromBranchId);
+            //_unitOfWork.Save();
+            //return true;
+
+            _unitOfWork.ProductTransferLineItemRepository.Delete(lineItem);
+            SubtractLineItemStock(lineItem, productTransfer.ToBranchId);
+            AddLineItemStock(lineItem, productTransfer.FromBranchId);
             _unitOfWork.Save();
             return true;
+
         }
 
         public void Dispose()
@@ -132,6 +139,18 @@ namespace MoencoPos.Store.Services
         public List<ProductTransfer> GetAllProductTransfer()
         {
             return _unitOfWork.ProductTransferRepository.GetAll();
+        }
+
+        public bool IsAvailable(int productId, int branchId, int quantity)
+        {
+            var stock = _unitOfWork.StockRepository.FindBy(x => x.BranchId == branchId
+                                                                && x.ProductId == productId).SingleOrDefault();
+            if (stock == null) return false;
+
+            if (quantity > stock.Quantity)
+                return false;
+            else
+                return true;
         }
     }
 }
