@@ -24,5 +24,6 @@ namespace MoencoPos.Store.Services
                    Expression<Func<ProductTransfer, bool>> filter = null,
                    Func<IQueryable<ProductTransfer>, IOrderedQueryable<ProductTransfer>> orderBy = null,
                    string includeProperties = "");
+        bool IsAvailable(int productId, int branchId, int quantity);
     }
 }

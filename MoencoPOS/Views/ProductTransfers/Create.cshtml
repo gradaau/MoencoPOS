@@ -49,16 +49,16 @@
                         <div class="form-group">
                             @Html.LabelFor(m => m.FromBranchName, new { @class = "col-sm-4 control-label" })
                             <div class="col-sm-8">
-                                @*@Html.DropDownList("FromBranchId", (SelectList)ViewData["BranchList"])*@
-                                @ViewBag.FromBranchName
+                                @Html.DropDownListFor(m => m.FromBranchId, ViewBag.FromBranchList as SelectList)
+                                @*@ViewBag.FromBranchName*@
                                 @Html.ValidationMessageFor(model => model.FromBranchName, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(m => m.ToBranchName, new { @class = "col-sm-4 control-label" })
                             <div class="col-sm-8">
-                                @*@Html.DropDownList("ToBranchId", (SelectList)ViewData["BranchList"])*@
-                                @ViewBag.ToBranchName
+                                @Html.DropDownListFor(m => m.ToBranchId, ViewBag.ToBranchList as SelectList)
+                                @*@ViewBag.ToBranchName*@
                                 @Html.ValidationMessageFor(model => model.ToBranchName, "", new { @class = "text-danger" })
                             </div>
                         </div>

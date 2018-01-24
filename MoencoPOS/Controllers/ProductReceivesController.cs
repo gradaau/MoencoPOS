@@ -187,7 +187,7 @@ namespace MoencoPOS.Controllers
         {
             var lineItem = _productReceiveService.FindLineItemById(id);
             var productReceive = _productReceiveService.FindById(lineItem.ProductReceiveId);
-            productReceive.ProductReceiveLineItems.Remove(lineItem);
+            //productReceive.ProductReceiveLineItems.Remove(lineItem);
             _productReceiveService.DeleteProductReceiveLineItem(productReceive, lineItem);
             return RedirectToAction("Create", "ProductReceives", new { id = productReceive.ProductReceiveId });
         }

@@ -107,12 +107,12 @@
 <script>
     $(function () {
         $(".btn-delete-product-transfer").click(function () {
-            var productReceiveId = $(this).attr('productReceiveId');
+            var productTransferId = $(this).attr('productTransferId');
             $('#cats-modal-product-transfer-delete').modal('show');
 
             $("#yes-delete").click(function () {
 
-                window.location = "@Url.Action("Delete", "ProductTransfer")" + "/" + productTransferId;
+                window.location = "@Url.Action("DeleteTransfer", "ProductTransfers")" + "/" + productTransferId;
 
             });
         });
